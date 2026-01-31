@@ -1,12 +1,13 @@
 import os
-import pandas as pd
 from groq import Groq
 
-# Set your Groq API key (store securely!)
-os.environ["GROQ_API_KEY"] = "your_api_key"
+# Read API key ONLY from environment
+api_key = os.getenv("GROQ_API_KEY")
 
-# Initialize Groq client
-client = Groq(api_key=os.environ["GROQ_API_KEY"])
+if not api_key:
+    raise ValueError("GROQ_API_KEY not set in environment")
+
+client = Groq(api_key=api_key)
 
 # Input file name
 input_file = "cleaned_output.csv"
